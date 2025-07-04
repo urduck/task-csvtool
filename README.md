@@ -1,1 +1,68 @@
-# task-csvtool
+# CSVTool
+
+Простой CLI-скрипт для фильтрации и агрегации данных из CSV-файла.
+
+## Требования
+- Python 3.7+
+- tabulate (для красивого вывода)
+
+## Быстрый старт
+1. Клонируйте репозиторий и перейдите в папку проекта.
+2. Создайте и активируйте виртуальное окружение (рекомендуется):
+   ```bash
+   python3 -m venv venv
+   source venv/bin/activate
+   pip install -r requirements.txt
+   ```
+   Или установите tabulate напрямую:
+   ```bash
+   pip install tabulate
+   ```
+3. Убедитесь, что в проекте есть файл `products.csv` (пример есть в репозитории).
+
+## Примеры запуска
+
+Показать все данные:
+```bash
+python3 main.py --file products.csv
+```
+
+Фильтрация по числовой колонке (например, цена больше 500):
+```bash
+python3 main.py --file products.csv --where "price>500"
+```
+
+Фильтрация по текстовой колонке (например, бренд Apple):
+```bash
+python3 main.py --file products.csv --where "brand=apple"
+```
+
+Агрегация (например, средняя цена):
+```bash
+python3 main.py --file products.csv --aggregate "price=avg"
+```
+
+Комбинированный пример (максимальный рейтинг среди Samsung):
+```bash
+python3 main.py --file products.csv --where "brand=samsung" --aggregate "rating=max"
+```
+
+## Демонстрация
+Для запуска всех основных сценариев используйте демонстрационный скрипт:
+```bash
+bash demo.sh
+```
+
+## Тесты
+Для запуска тестов (ищутся в папке tests/):
+```bash
+pytest
+```
+
+---
+
+## Описание задания
+- Фильтрация по >, <, = для любой колонки
+- Агрегация (avg, min, max) только для числовых колонок
+- Используются только стандартные библиотеки и tabulate для вывода
+- Код покрыт тестами (pytest)
