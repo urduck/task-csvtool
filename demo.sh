@@ -1,7 +1,27 @@
 #!/bin/bash
 
-# Активация виртуального окружения
-source venv/bin/activate
+# 1. Активация виртуального окружения, если оно есть
+if [ -d "venv" ]; then
+    echo "Активируем виртуальное окружение..."
+    echo
+    source venv/bin/activate
+fi
+
+# 2. Проверка наличия зависимостей
+missing=0
+python3 -c "import tabulate" 2>/dev/null || missing=1
+python3 -c "import pytest" 2>/dev/null || missing=1
+
+if [ $missing -eq 1 ]; then
+    echo "Устанавливаем зависимости из requirements.txt..."
+    echo
+    pip install -r requirements.txt
+fi
+
+echo "Запускаем демонстрационные команды"
+echo
+
+# 3. Демонстрационные команды
 
 # 1. Все товары Apple
 echo '$ python3 main.py --file products.csv --where "brand=apple"'
